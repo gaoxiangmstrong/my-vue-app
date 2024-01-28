@@ -13,23 +13,26 @@
       </div>
       <button type="submit">Login</button>
     </form>
+    <div v-if="loginError" class="error-message">{{ loginError }}</div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { handleLoginError } from '@/services/errorHandler';
 
 export default {
   data() {
     return {
       email: "",
       password: "",
+      loginError: "",
     };
   },
   methods: {
-    login() {
-      axios
-        .post(
+    async login() {
+      try {
+        const response = await axios.post(
           "http://127.0.0.1:5000/login",
           {
             email: this.email,
@@ -38,16 +41,14 @@ export default {
           {
             headers: { "Content-Type": "application/json" },
           }
-        )
-        .then((response) => {
-          localStorage.setItem("access_token", response.data.access_token);
-          localStorage.setItem("refresh_token", response.data.refresh_token);
-          this.$router.push("/protected");
-        })
-        .catch((error) => {
-          console.error("Login error:", error);
-          console.log(error.response.data);
-        });
+        );
+        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("refresh_token", response.data.refresh_token);
+        this.$router.push("/protected"); // 保持重定向逻辑
+      } catch (error) {
+        console.log(error.response.data.msg);
+        this.loginError = handleLoginError(error)
+      }
     },
   },
 };
@@ -56,6 +57,9 @@ export default {
 <style>
 /*测试用的样式*/
 h2 {
+  color: red;
+}
+.error-message {
   color: red;
 }
 </style>

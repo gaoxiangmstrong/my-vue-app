@@ -13,30 +13,23 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "../axios";
+
+
 export default {
   data() {
     return { users: [] };
   },
   methods: {
     getUsers() {
-      const accessToken = localStorage.getItem("access_token");
-      if (accessToken) {
-        axios
-          .get("http://127.0.0.1:5000/users", {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
-          .then((res) => {
-            this.users = res.data;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      } else {
-        console.error("No access token available");
-      }
+      axios
+        .get("http://127.0.0.1:5000/users")
+        .then((res) => {
+          this.users = res.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };
