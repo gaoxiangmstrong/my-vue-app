@@ -4,7 +4,8 @@ import HelloWorld from "@/components/HelloWorld";
 import ProtectedView from "@/components/ProtectedView";
 import ReadingChatbot from '@/components/ReadingChatbot/ReadingChatbot.vue';
 import ArticleContent from '@/components/AllArticles/ArticleContent.vue'
-
+import TimeOptions from '@/components/TimeOptions'
+import CardList from '@/components/CardList/CardList'
 const routes = [
   {
     path: "/hello",
@@ -33,6 +34,16 @@ const routes = [
     name: "userReadings",
     component: ArticleContent
     // 暂时不需要鉴权
+  },
+  {
+    path: "/timeoptions",
+    name: "TimeOptions",
+    component: TimeOptions,
+  },
+  {
+    path: "/cards",
+    name: "CardList",
+    component: CardList,
   }
 ];
 

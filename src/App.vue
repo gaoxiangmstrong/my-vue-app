@@ -1,13 +1,18 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+  <v-app>
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-// JavaScript 部分
-</script>
 
-<style>
-/* 样式部分 */
-</style>
+export default {
+  name: 'App',
+
+  data: () => ({
+    //
+  }),
+}
+</script>
